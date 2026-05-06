@@ -1,66 +1,97 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import { siteData } from "@/lib/siteData";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
+    <main className="container">
+      <section className="hero">
+        <div>
+          <p className="eyebrow">Boulangerie & Patisserie</p>
+          <h1>{siteData.name}</h1>
+          <p>{siteData.tagline}</p>
+          <p>{siteData.description}</p>
+          <div className="actions">
+            <a className="button primary" href={siteData.phoneLink}>
+              Appeler
+            </a>
             <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+              className="button secondary"
+              href={siteData.mapsUrl}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noreferrer"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+              Voir sur Google Maps
+            </a>
+          </div>
         </div>
-        <div className={styles.ctas}>
+        <img src={siteData.heroImages[0]} alt={siteData.name} />
+      </section>
+
+      <section className="grid">
+        <article className="card">
+          <h2>Notre histoire</h2>
+          <p>{siteData.story}</p>
+        </article>
+        <article className="card">
+          <h2>Cuisine</h2>
+          <p>{siteData.cuisine}</p>
+        </article>
+      </section>
+
+      <section className="gallery">
+        {siteData.heroImages.map((src) => (
+          <img key={src} src={src} alt={siteData.name} />
+        ))}
+      </section>
+
+      <section className="grid">
+        <article className="card">
+          <h2>Horaires</h2>
+          <ul>
+            {siteData.openingHours.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </article>
+        <article className="card">
+          <h2>Contact</h2>
+          <p>{siteData.address}</p>
           <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            className="button primary"
+            href={siteData.phoneLink}
+            style={{ marginTop: "0.75rem", display: "inline-block" }}
           >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
+            {siteData.phoneDisplay}
           </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        </article>
+      </section>
+
+      <section className="card">
+        <h2>Avis clients</h2>
+        <div className="reviews">
+          {siteData.reviews.map((review) => (
+            <blockquote key={review.author}>
+              <p>{review.text}</p>
+              <footer>
+                {review.author} - {"★".repeat(review.rating)}
+              </footer>
+            </blockquote>
+          ))}
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section className="footer-cta">
+        <a className="button primary" href={siteData.phoneLink}>
+          Reserver
+        </a>
+        <a
+          className="button secondary"
+          href={siteData.mapsUrl}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Adresse & itineraire
+        </a>
+      </section>
+    </main>
   );
 }
